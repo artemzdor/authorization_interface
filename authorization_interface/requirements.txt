@@ -1,0 +1,4 @@
+flask
+redis
+psycopg2
+more-itertools
