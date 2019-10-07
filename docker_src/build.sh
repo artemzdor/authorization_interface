@@ -2,18 +2,23 @@
 
 echo "Start Build"
 
-export GIT_CLONE=https://github.com/artemzdor/authorization_interface.git
-export DOCKER_URL=asfree/authorization_interface:latest
+cp -r ../authorization_interface ./authorization_interface
 
-echo "Git Clone: book_crud_api"
+asfree/authorization_interface:latest
 
-git clone $GIT_CLONE
+echo "Docker Build authorization_interface"
 
-echo "Docker Build"
+docker build -t asfree/authorization_interface:latest -f Dockerfile_Flask .
 
-docker build -t $DOCKER_URL .
+echo "End Build authorization_interface"
 
-echo "Delete $GIT_CLONE"
+echo "Docker Build JS"
+
+docker build -t asfree/authorization_interface_js:latest -f Dockerfile_JS .
+
+echo "End Build JS"
+
+echo "Delete authorization_interface"
 
 rm -rf ./authorization_interface
 

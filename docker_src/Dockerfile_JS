@@ -1,0 +1,22 @@
+FROM node:latest as build
+
+MAINTAINER Artem Zdor "artemzdor@gmail.com"
+
+RUN mkdir -p /usr/src/authorization_interface
+
+COPY ./authorization_interface/ /usr/src/authorization_interface
+
+WORKDIR /usr/src/authorization_interface/js
+
+RUN npm install && npm run build
+
+FROM busybox as src
+
+WORKDIR /app
+
+COPY --from=build /usr/src/authorization_interface/js/dist ./
+
+CMD ["/bin/sh"]
+
+
+

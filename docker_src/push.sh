@@ -2,11 +2,7 @@
 
 echo "Start Push"
 
-export DOCKER_URL=asfree/authorization_interface:latest
-
-echo "Docker Push"
-
-docker push $DOCKER_URL
-
+docker push asfree/authorization_interface:latest
+docker push asfree/authorization_interface_js:latest
 echo "End"
 

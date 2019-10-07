@@ -2,34 +2,42 @@ version: '3'
 
 services:
 
-  postgres_db:
-    image: postgres
-    restart: always
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: user_test
-      POSTGRES_PASSWORD: example_test
-      POSTGRES_DB: book_crud_api_test
-    ports:
-      - 5532:5432
+#  postgres_db:
+#    image: postgres
+#    restart: always
+#    container_name: postgres_db
+#    environment:
+#      POSTGRES_USER: user_test
+#      POSTGRES_PASSWORD: example_test
+#      POSTGRES_DB: authorization_interface
+#    ports:
+#      - 5532:5432
+#
+#  pgadmin4:
+#    container_name: pgadmin4
+#    image: dpage/pgadmin4
+#    restart: always
+#    environment:
+#      - "PGADMIN_DEFAULT_EMAIL=user@domain.com"
+#      - "PGADMIN_DEFAULT_PASSWORD=SuperSecret"
+#    ports:
+#      - 10010:80
 
-  pgadmin4:
-    container_name: pgadmin4
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      - "PGADMIN_DEFAULT_EMAIL=user@domain.com"
-      - "PGADMIN_DEFAULT_PASSWORD=SuperSecret"
-    ports:
-      - 10010:80
-
-  book_crud_api:
-    container_name: book_crud_api
+  authorization_interface:
+    container_name: authorization_interface
     image: asfree/authorization_interface:latest
     environment:
-      - "PATH_CONFIG_JSON=/usr/src/Book_Crud_Api/book_crud_api/config.json"
-      - "SLEEP_START=20"
+      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/config.json"
     ports:
-      - 5555:8080
+      - 5000:5000
 
+  authorization_interface_js:
+    container_name: authorization_interface_js
+    image: asfree/authorization_interface_js:latest
+    command: tail -f /dev/null
+#    environment:
+#      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/authorization_interface/config.json"
+#      - "SLEEP_START=20"
+#    ports:
+#      - 5000:5000
 
