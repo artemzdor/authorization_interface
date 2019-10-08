@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
 
@@ -35,9 +35,16 @@ services:
     container_name: authorization_interface_js
     image: asfree/authorization_interface_js:latest
     command: tail -f /dev/null
-#    environment:
-#      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/authorization_interface/config.json"
-#      - "SLEEP_START=20"
-#    ports:
-#      - 5000:5000
+    volumes:
+      - "/etc/nginx/conf.d"
+      - "/app"
 
+  router:
+    container_name: "router"
+    image: "nginx:stable"
+
+    volumes_from:
+      - "authorization_interface_js"
+
+    ports:
+      - "80:80"

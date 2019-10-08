@@ -16,6 +16,10 @@ WORKDIR /app
 
 COPY --from=build /usr/src/authorization_interface/js/dist ./
 
+RUN mkdir /nginx_config
+
+COPY ./authorization_interface/nginx_config /etc/nginx/conf.d
+
 CMD ["/bin/sh"]
 
 
