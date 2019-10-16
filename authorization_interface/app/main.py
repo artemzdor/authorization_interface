@@ -53,6 +53,16 @@ def logout():
     session.pop('username', None)
     return jsonify({{"status": 200}})
 
+
+@app.route('/changepassword', methods=["POST"])
+def logout():
+    json_regis: dict = request.json
+    login: str = json_regis.get("login")
+    password: str = json_regis.get("password")
+
+    session.pop('username', None)
+    return jsonify({{"status": 200}})
+
 # set the secret key.  keep this really secret:
 # app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 

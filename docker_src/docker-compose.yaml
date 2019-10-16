@@ -2,49 +2,49 @@ version: '2'
 
 services:
 
-#  postgres_db:
-#    image: postgres
-#    restart: always
-#    container_name: postgres_db
-#    environment:
-#      POSTGRES_USER: user_test
-#      POSTGRES_PASSWORD: example_test
-#      POSTGRES_DB: authorization_interface
-#    ports:
-#      - 5532:5432
-#
-#  pgadmin4:
-#    container_name: pgadmin4
-#    image: dpage/pgadmin4
-#    restart: always
-#    environment:
-#      - "PGADMIN_DEFAULT_EMAIL=user@domain.com"
-#      - "PGADMIN_DEFAULT_PASSWORD=SuperSecret"
-#    ports:
-#      - 10010:80
-
-  authorization_interface:
-    container_name: authorization_interface
-    image: asfree/authorization_interface:latest
+  postgres_db:
+    image: postgres
+    restart: always
+    container_name: postgres_db
     environment:
-      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/config.json"
+      POSTGRES_USER: user_test
+      POSTGRES_PASSWORD: example_test
+      POSTGRES_DB: authorization_interface
     ports:
-      - 5000:5000
+      - 5532:5432
 
-  authorization_interface_js:
-    container_name: authorization_interface_js
-    image: asfree/authorization_interface_js:latest
-    command: tail -f /dev/null
-    volumes:
-      - "/etc/nginx/conf.d"
-      - "/app"
-
-  router:
-    container_name: "router"
-    image: "nginx:stable"
-
-    volumes_from:
-      - "authorization_interface_js"
-
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=user@domain.com"
+      - "PGADMIN_DEFAULT_PASSWORD=SuperSecret"
     ports:
-      - "8080:8080"
+      - 10010:80
+
+#  authorization_interface:
+#    container_name: authorization_interface
+#    image: asfree/authorization_interface:latest
+#    environment:
+#      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/config.json"
+#    ports:
+#      - 5000:5000
+#
+#  authorization_interface_js:
+#    container_name: authorization_interface_js
+#    image: asfree/authorization_interface_js:latest
+#    command: tail -f /dev/null
+#    volumes:
+#      - "/etc/nginx/conf.d"
+#      - "/app"
+#
+#  router:
+#    container_name: "router"
+#    image: "nginx:stable"
+#
+#    volumes_from:
+#      - "authorization_interface_js"
+#
+#    ports:
+#      - "8080:8080"

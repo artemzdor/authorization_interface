@@ -1,0 +1,9 @@
+{
+  "pg_connect": {
+    "host": "localhost",
+    "port": 5532,
+    "user": "user_test",
+    "password": "example_test",
+    "database": "authorization_interface"
+  }
+}
