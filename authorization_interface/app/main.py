@@ -15,9 +15,9 @@ def get_tm() -> int:
 @app.route('/login', methods=["POST"])
 def login():
 
-    json_regis: dict = request.json
-    login: str = json_regis.get("login")
-    password: str = json_regis.get("password")
+    json_data: dict = request.json
+    login: str = json_data.get("login")
+    password: str = json_data.get("password")
 
     if login in session:
         if password == session[login]["password"]:
@@ -35,9 +35,9 @@ def login():
 @app.route("/registration", methods=["POST"])
 def registration():
 
-    json_regis: dict = request.json
-    login: str = json_regis.get("login")
-    password: str = json_regis.get("password")
+    json_data: dict = request.json
+    login: str = json_data.get("login")
+    password: str = json_data.get("password")
 
     if login in session:
         return jsonify({"message": "A user with such login is already there", "status": 500})
@@ -50,17 +50,19 @@ def registration():
 @app.route('/logout', methods=["POST"])
 def logout():
     # remove the username from the session if its there
-    session.pop('username', None)
+    json_data: dict = request.json
+    session = json_data.get("session")
+    print(json_data)
     return jsonify({{"status": 200}})
 
 
 @app.route('/changepassword', methods=["POST"])
-def logout1():
-    json_regis: dict = request.json
-    login: str = json_regis.get("login")
-    password: str = json_regis.get("password")
-
-    session.pop('username', None)
+def changepassword():
+    json_data: dict = request.json
+    session = json_data.get("session")
+    new_pass: str = json_data.get("newPass")
+    old_pass: str = json_data.get("oldPass")
+    print(json_data)
     return jsonify({{"status": 200}})
 
 # set the secret key.  keep this really secret:

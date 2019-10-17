@@ -24,6 +24,20 @@ CREATE TABLE {table_name}
 """.format(table_name=TABLE_NAME)
 
 
+INSERT_USER_DATA: str = """
+INSERT INTO {table_name} (login, password, removed) 
+VALUES ('{login}'::text, '{password}'::text, false::boolean)
+returning id;
+"""
+
+
+UPDATE_BOOK: str = """
+UPDATE {table_name} 
+SET password = {password}::text 
+WHERE id = {id_user};
+"""
+
+
 def get_table_name() -> str:
     return TABLE_NAME
 
@@ -60,5 +74,11 @@ else:
     print("Create table")
     create_table("users", conn=conn)
 
+cur: cursor = conn.cursor()
+sql: str = INSERT_USER_DATA.format(table_name=get_table_name(), login="u1", password="passwords")
+id_user: int = cur.execute(query=sql)
+row = cur.fetchone()
+conn.commit()
+row = cur.fetchone()
 print()
 
