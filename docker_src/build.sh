@@ -4,8 +4,6 @@ echo "Start Build"
 
 cp -r ../authorization_interface ./authorization_interface
 
-asfree/authorization_interface:latest
-
 echo "Docker Build authorization_interface"
 
 docker build -t asfree/authorization_interface:latest -f Dockerfile_Flask .
