@@ -23,6 +23,11 @@ export default new Router({
           component: () => import(/* webpackChunkName: "registration" */ './components/Registration.vue')
         }
       ]
+    },
+    {
+      path: '/lk',
+      name: 'Lk',
+      component: () => import(/* webpackChunkName: "Lk" */ './views/Lk.vue')
     }
   ]
 })

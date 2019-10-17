@@ -27,6 +27,20 @@ export default new Vuex.Store({
         url: `${this.state.getGlobalLocation}/api/registration`,
         data: dataForSend
       })
+    },
+    changePassword (context, dataForSend) {
+      return axios({
+        method: 'POST',
+        url: `${this.state.getGlobalLocation}/api/changepassword`,
+        data: dataForSend
+      })
+    },
+    logOut (context, dataForSend) {
+      return axios({
+        method: 'POST',
+        url: `${this.state.getGlobalLocation}/api/logout`,
+        data: dataForSend
+      })
     }
   }
 })

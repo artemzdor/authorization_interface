@@ -50,10 +50,14 @@ export default {
       if ((!!data.login && !!data.password && !!data.repPass) && (data.password === data.repPass)) {
         this.$store.dispatch('registration', data)
           .then(data => {
-            console.log(data)
+            if (data.data.status === 200) {
+              document.cookie = `session=${data.data.session}; max-age=${data.data.tm / 1000}`
+            } else {
+              alert(`Регистрация не удалась`)
+            }
           })
           .catch(data => {
-            console.log(data)
+            alert(`Регистрация не удалась`)
           })
       } else {
         alert('Введены не все данные или пароли не совпадают')

@@ -47,10 +47,15 @@ export default {
       if (!!data.login && !!data.password) {
         this.$store.dispatch('login', data)
           .then(data => {
-            console.log(data)
+            if (data.status === 200) {
+              document.cookie = `session=${data.session}; max-age=${data.tm / 1000}`
+              this.$route.push('lk')
+            } else {
+              alert(`Логин не удался`)
+            }
           })
           .catch(data => {
-            console.log(data)
+            alert(`Логин не удался`)
           })
       } else {
         alert('Введены не все данные')

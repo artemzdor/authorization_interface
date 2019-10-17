@@ -55,7 +55,7 @@ def logout():
 
 
 @app.route('/changepassword', methods=["POST"])
-def logout():
+def logout1():
     json_regis: dict = request.json
     login: str = json_regis.get("login")
     password: str = json_regis.get("password")
