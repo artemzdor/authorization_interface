@@ -31,7 +31,7 @@ returning id;
 """
 
 
-UPDATE_BOOK: str = """
+UPDATE_USER_PASSWORD: str = """
 UPDATE {table_name} 
 SET password = {password}::text 
 WHERE id = {id_user};
@@ -75,6 +75,7 @@ else:
     create_table("users", conn=conn)
 
 cur: cursor = conn.cursor()
+# sql: str = INSERT_USER_DATA.format(table_name=get_table_name(), login="u1", password="passwords")
 sql: str = INSERT_USER_DATA.format(table_name=get_table_name(), login="u1", password="passwords")
 id_user: int = cur.execute(query=sql)
 row = cur.fetchone()

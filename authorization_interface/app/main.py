@@ -53,7 +53,7 @@ def logout():
     json_data: dict = request.json
     session = json_data.get("session")
     print(json_data)
-    return jsonify({{"status": 200}})
+    return jsonify({"status": 200})
 
 
 @app.route('/changepassword', methods=["POST"])
@@ -63,7 +63,7 @@ def changepassword():
     new_pass: str = json_data.get("newPass")
     old_pass: str = json_data.get("oldPass")
     print(json_data)
-    return jsonify({{"status": 200}})
+    return jsonify({"status": 200})
 
 # set the secret key.  keep this really secret:
 # app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
