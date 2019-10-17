@@ -23,28 +23,28 @@ services:
     ports:
       - 10010:80
 
-#  authorization_interface:
-#    container_name: authorization_interface
-#    image: asfree/authorization_interface:latest
-#    environment:
-#      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/config.json"
-#    ports:
-#      - 5000:5000
-#
-#  authorization_interface_js:
-#    container_name: authorization_interface_js
-#    image: asfree/authorization_interface_js:latest
-#    command: tail -f /dev/null
-#    volumes:
-#      - "/etc/nginx/conf.d"
-#      - "/app"
-#
-#  router:
-#    container_name: "router"
-#    image: "nginx:stable"
-#
-#    volumes_from:
-#      - "authorization_interface_js"
-#
-#    ports:
-#      - "8080:8080"
+  authorization_interface:
+    container_name: authorization_interface
+    image: asfree/authorization_interface:latest
+    environment:
+      - "PATH_CONFIG_JSON=/usr/src/authorization_interface/config.json"
+    ports:
+      - 5000:5000
+
+  authorization_interface_js:
+    container_name: authorization_interface_js
+    image: asfree/authorization_interface_js:latest
+    command: tail -f /dev/null
+    volumes:
+      - "/etc/nginx/conf.d"
+      - "/app"
+
+  router:
+    container_name: "router"
+    image: "nginx:stable"
+
+    volumes_from:
+      - "authorization_interface_js"
+
+    ports:
+      - "8080:8080"
