@@ -5,6 +5,7 @@ from flask import Flask, redirect, url_for, escape, request, jsonify
 from uuid import uuid4
 app = Flask(__name__)
 
+# TODO: добавить postgresql , redis для сессий
 session_data: dict = dict()
 
 
