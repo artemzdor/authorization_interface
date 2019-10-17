@@ -5,7 +5,7 @@ from flask import Flask, redirect, url_for, escape, request, jsonify
 from uuid import uuid4
 app = Flask(__name__)
 
-session: dict = dict()
+session_data: dict = dict()
 
 
 def get_tm() -> int:
@@ -19,10 +19,10 @@ def login():
     login: str = json_data.get("login")
     password: str = json_data.get("password")
 
-    if login in session:
-        if password == session[login]["password"]:
-            if session[login]["session"]:
-                session_uuid: str = session[login]["session"]
+    if login in session_data:
+        if password == session_data[login]["password"]:
+            if session_data[login]["session"]:
+                session_uuid: str = session_data[login]["session"]
             else:
                 session_uuid: str = str(uuid4())
             return jsonify({"session": session_uuid, "status": 200, "tm": get_tm()})
@@ -39,11 +39,11 @@ def registration():
     login: str = json_data.get("login")
     password: str = json_data.get("password")
 
-    if login in session:
+    if login in session_data:
         return jsonify({"message": "A user with such login is already there", "status": 500})
     else:
         session_uuid: str = str(uuid4())
-        session[login] = {"login": login, "password": password, "session": session_uuid, "tm": get_tm()}
+        session_data[login] = {"login": login, "password": password, "session": session_uuid, "tm": get_tm()}
         return jsonify({"session": session_uuid, "status": 200, "tm": get_tm()})
 
 
@@ -62,8 +62,15 @@ def changepassword():
     session = json_data.get("session")
     new_pass: str = json_data.get("newPass")
     old_pass: str = json_data.get("oldPass")
+
+    for k, v in session_data.items():
+        if v.get("session") == session:
+            if v.get("password") == old_pass:
+                v["password"] = new_pass
+                return jsonify({"status": 200})
+
     print(json_data)
-    return jsonify({"status": 200})
+    return jsonify({"status": 500})
 
 # set the secret key.  keep this really secret:
 # app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
