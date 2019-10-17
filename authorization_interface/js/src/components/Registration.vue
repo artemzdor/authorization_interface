@@ -42,16 +42,18 @@ export default {
   methods: {
     reg (event) {
       event.preventDefault()
-      let data = {
+      let dataForSend = {
         login: document.getElementById('Login').value,
         password: document.getElementById('Password').value,
         repPass: document.getElementById('RepiatePassword').value
       }
-      if ((!!data.login && !!data.password && !!data.repPass) && (data.password === data.repPass)) {
-        this.$store.dispatch('registration', data)
-          .then(response => {
-            if (response.data.status === 200) {
-              document.cookie = `session=${response.data.session}; max-age=${response.data.tm / 1000}`
+      if ((!!dataForSend.login && !!dataForSend.password && !!dataForSend.repPass) && (dataForSend.password === dataForSend.repPass)) {
+        this.$store.dispatch('registration', dataForSend)
+          .then(result => {
+            console.log('result',result)
+            if (result.data.status === 200) {
+              document.cookie = `session=${result.data.session}; max-age=${result.data.tm / 1000}`
+              this.$router.push('lk')
             } else {
               alert(`Регистрация не удалась`)
             }

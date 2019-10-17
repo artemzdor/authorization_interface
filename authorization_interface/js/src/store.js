@@ -5,15 +5,6 @@ import Router from '@/router'
 
 Vue.use(Vuex)
 
-let responseLgin = (response) => {
-  if (response.data.status === 200) {
-    document.cookie = `session=${response.data.session}; max-age=${response.data.tm / 1000}`
-    Router.push('lk')
-  } else {
-    alert('Что-то пошло не так', err)
-  }
-}
-
 export default new Vuex.Store({
   state: {
     getGlobalLocation: window.location.origin
@@ -29,12 +20,6 @@ export default new Vuex.Store({
         url: `${this.state.getGlobalLocation}/api/login`,
         data: dataForSend
       })
-      .then(ress => {
-        responseLgin(ress)
-      })
-      .catch(err => {
-        alert('Логин не удался', err)
-      })
     },
     registration (context, dataForSend) {
       console.log(window.location.origin)
@@ -42,12 +27,6 @@ export default new Vuex.Store({
         method: 'POST',
         url: `${this.state.getGlobalLocation}/api/registration`,
         data: dataForSend
-      })
-      .then(ress => {
-        responseLgin(ress)
-      })
-      .catch(err => {
-        alert('Логин не удался', err)
       })
     },
     changePassword (context, dataForSend) {
